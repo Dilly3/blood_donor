@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (c *Config) Serve() {
+func (c *Config) Serve() *gin.Engine {
 	router := gin.Default()
 	router.GET("/ping", func(c *gin.Context) {
 
@@ -14,4 +14,11 @@ func (c *Config) Serve() {
 			"message": "pong",
 		})
 	})
+
+	router.POST("/save", c.HandleSaveCandidate())
+	router.GET("/all", c.HandleGetAllCandidates())
+	router.GET("/name/:fullname", c.HandleGEtByNAme())
+	router.GET("/:id", c.HandleGEtById())
+
+	return router
 }
